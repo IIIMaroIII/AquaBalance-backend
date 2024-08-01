@@ -1,0 +1,28 @@
+type: object
+required:
+  - name
+  - email
+  - _id
+  - createdAt
+  - updatedAt
+properties:
+  name:
+    type: string
+    description: 'User`s name'
+    example: 'Ivan Durak'
+  email:
+    type: string
+    description: 'User`s email'
+    example: 'john.doe@example.com'
+  _id:
+    type: string
+    description: 'User id is automatically created by database'
+    example: '66804f38fa6c3fdb57a8771e'
+  createdAt:
+    description: 'User`s created data'
+    type: string
+    example: '2024-06-21T03:02:44.125+00:00'
+  updatedAt:
+    description: 'User`s updated data'
+    type: string
+    example: '2024-06-24T02:41:59.399+00:00'
