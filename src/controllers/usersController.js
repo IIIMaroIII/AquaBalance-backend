@@ -2,8 +2,6 @@ import { CLOUDINARY, COOKIE, USER } from '../constants/constants.js';
 import { Services } from '../services/index.js';
 import { GenerateCookie } from '../utils/GenerateCookie.js';
 import { HttpError } from '../utils/HttpError.js';
-import { calculateDailyWaterIntake } from '../utils/calculateDailyWaterIntake.js';
-import { calculateDailyWaterIntakeForWomen } from '../utils/calculateDailyWaterIntakeForWomen.js';
 import { env } from '../utils/env.js';
 import { googleOauth } from '../utils/googleOauth.js';
 import { ResponseMaker } from '../utils/responseMaker.js';
