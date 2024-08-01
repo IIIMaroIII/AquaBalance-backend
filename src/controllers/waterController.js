@@ -3,7 +3,6 @@ import { Services } from '../services/index.js';
 import { ResponseMaker } from '../utils/responseMaker.js';
 import { HttpError } from '../utils/HttpError.js';
 import { parseISO } from 'date-fns';
-import { generateData } from '../utils/generateVolumesForDB.js';
 
 const addWaterVolumeController = async (req, res) => {};
 
