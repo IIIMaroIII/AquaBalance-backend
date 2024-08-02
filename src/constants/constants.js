@@ -1,10 +1,15 @@
 import path from 'node:path';
 
-export const SERVER_DOMAIN = '';
+export const SERVER_DOMAIN = 'https://aquabalance-backend.onrender.com';
 export const LOCALHOST = 'http://localhost:5173';
 export const DEPLOY_FRONTEND = '';
 
-export const ALLOWED_ORIGINS = ['http://localhost:5173', '', ''];
+export const ALLOWED_ORIGINS = [
+  'http://localhost:5173',
+  'https://aqua-balance-frontend.vercel.app',
+  'https://aqua-balance-frontend-git-main-iiimaroiiis-projects.vercel.app',
+  'https://aqua-balance-frontend-ox98gif6q-iiimaroiiis-projects.vercel.app',
+];
 
 export const ENV_VARS = {
   PORT: 'PORT',
