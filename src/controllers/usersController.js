@@ -1,16 +1,18 @@
-import { CLOUDINARY, COOKIE, USER } from '../constants/constants.js';
+// import { CLOUDINARY, COOKIE, USER } from '../constants/constants.js';
 import { Services } from '../services/index.js';
-import { GenerateCookie } from '../utils/GenerateCookie.js';
+// import { GenerateCookie } from '../utils/GenerateCookie.js';
 import { HttpError } from '../utils/HttpError.js';
-import { env } from '../utils/env.js';
-import { googleOauth } from '../utils/googleOauth.js';
+// import { env } from '../utils/env.js';
+// import { googleOauth } from '../utils/googleOauth.js';
 import { ResponseMaker } from '../utils/responseMaker.js';
-import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
-import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+// import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+// import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
 const RegisterController = async (req, res, next) => {
-  res.send('Hello');
-  // if (!user) return next(HttpError(500, 'Internal Server Error'));
+  const user = await Services.users.registerUser(req.body);
+  if (!user) return next(HttpError(500, 'Internal Server Error'));
+
+  res.json(ResponseMaker(201, 'Successfully registered a user!', user));
 };
 
 const LoginController = async (req, res, next) => {

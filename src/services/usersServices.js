@@ -10,7 +10,15 @@ import { sendEmail } from '../utils/sendMail.js';
 import { googleOauth } from '../utils/googleOauth.js';
 
 const registerUser = async (payload) => {
-  // if (user) throw HttpError(409, 'Email has had already in use!');
+  const user = await Models.UserModel.findOne({ email: payload.email });
+  if (user) throw HttpError(409, 'Email has had already in use!');
+
+  const encryptedPassword = await bcrypt.hash(payload.password, 10);
+
+  return await Models.UserModel.create({
+    ...payload,
+    password: encryptedPassword,
+  });
 };
 
 const loginUser = async (payload) => {
