@@ -1,7 +1,12 @@
---------------
+- validations
+- reusable Input component
+
+---
+
 Backend: https://waterwise-backend.onrender.com
 Frontend: https://water-wise-frontend.vercel.app
---------------
+
+---
 
 const app = express();
 app.use(
