@@ -9,8 +9,10 @@ import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
 const RegisterController = async (req, res, next) => {
-  res.send('Hello');
-  // if (!user) return next(HttpError(500, 'Internal Server Error'));
+  const user = await Services.users.registerUser(req.body);
+  if (!user) return next(HttpError(500, 'Internal Server Error'));
+
+  res.json(ResponseMaker(201, 'Successfully registered a user!', user));
 };
 
 const LoginController = async (req, res, next) => {
