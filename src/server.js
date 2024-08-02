@@ -39,7 +39,7 @@ export const setupServer = () => {
 
   app.use('/v1/users/uploads', express.static(DIR.UPLOAD));
 
-  // app.use('/v1/api-docs', swaggerDocs());
+  app.use('/v1/api-docs', swaggerDocs());
 
   app.use(router);
 

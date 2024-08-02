@@ -1,0 +1,45 @@
+tags:
+  - Users
+summary: Login user
+operationId: loginUser
+description: Login user
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            description: User's email
+            type: string
+            example: inna_boiko@libero.it
+          password:
+            description: Password
+            type: string
+            example: password
+responses:
+  '200':
+    description: Successfully logged in an user!
+    content:
+      application/json:
+        schema:
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully logged in an user!
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  example: L/cWT3hTu0TDcQZXyUN7mdJCa7o=
+  '404':
+    $ref: ../../components/responses/404.yaml

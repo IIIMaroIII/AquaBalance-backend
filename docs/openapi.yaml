@@ -1,0 +1,44 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: AquaBalance App
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This is a documentation of students app
+tags:
+  - name: Users
+    description: Users operations
+  - name: Water
+    description: Operations about users
+servers:
+  - url: https://aquabalance-backend.onrender.com
+  - url: http://127.0.0.1:5173
+paths:
+  /users/register:
+    post:
+      $ref: ../swagger/paths/users/register.yaml
+  /users/login:
+    post:
+      $ref: ../swagger/paths/users/login.yaml
+  /users/logout:
+    post:
+      $ref: ../swagger/paths/users/logout.yaml
+  /users/{user_id}:
+    patch:
+      $ref: ../swagger/paths/users/{user_id}/update.yaml
+  /water:
+    post:
+      $ref: ../swagger/paths/water/post.yaml
+  /water/{water_id}:
+    get:
+      $ref: ../swagger/paths/water/{water_id}/get.yaml
+    patch:
+      $ref: ../swagger/paths/water/{water_id}/patch.yaml
+    delete:
+      $ref: ../swagger/paths/water/{water_id}/delete.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

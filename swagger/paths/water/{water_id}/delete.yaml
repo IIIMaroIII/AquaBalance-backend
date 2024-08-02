@@ -1,0 +1,21 @@
+tags:
+  - Water
+summary: Delete water's data
+operationId: deleteWater
+description: Delete water's data
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: water_id
+    required: true
+    schema:
+      type: string
+      example: 6687c71ada03d4549cb2930a
+responses:
+  '204':
+    description: No Content - Water's data was successfully deleted
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: ../../../components/responses/404.yaml

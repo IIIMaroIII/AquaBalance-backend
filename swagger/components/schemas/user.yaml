@@ -1,28 +1,47 @@
 type: object
 required:
-  - name
   - email
-  - _id
-  - createdAt
-  - updatedAt
+  - password
 properties:
-  name:
-    type: string
-    description: 'User`s name'
-    example: 'Ivan Durak'
-  email:
-    type: string
-    description: 'User`s email'
-    example: 'john.doe@example.com'
   _id:
+    description: User's id
     type: string
-    description: 'User id is automatically created by database'
-    example: '66804f38fa6c3fdb57a8771e'
-  createdAt:
-    description: 'User`s created data'
+    example: 6676ebc8d7c1721bb6534fc0
+  email:
+    description: User's email
     type: string
-    example: '2024-06-21T03:02:44.125+00:00'
-  updatedAt:
-    description: 'User`s updated data'
+    example: inna_boiko@libero.it
+  password:
+    description: User's password
     type: string
-    example: '2024-06-24T02:41:59.399+00:00'
+    example: password
+  name:
+    description: User's name
+    type: string
+    example: Inna
+    default: ''
+  gender:
+    description: User's gender
+    type: string
+    enum: ['woman', 'man']
+    default: woman
+    example: woman
+  weight:
+    description: User's weight
+    type: number
+    default: 0
+    example: 60
+  timeInSports:
+    description: User's time in sport
+    type: number
+    default: 0
+    example: 1.2
+  dailyNorma:
+    description: User's daily water norma
+    type: number
+    default: 1.8
+    example: 1.8
+  avatar:
+    description: User's avatar
+    type: string
+    example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
