@@ -2,13 +2,45 @@ import mongoose from 'mongoose';
 import { Services } from '../services/index.js';
 import { ResponseMaker } from '../utils/responseMaker.js';
 import { HttpError } from '../utils/HttpError.js';
-import { parseISO } from 'date-fns';
 
-const addWaterVolumeController = async (req, res) => {};
+const addWaterVolumeController = async (req, res) => {
+  const { waterValue, date } = req.body;
 
-const editWaterVolumeController = async (req, res, next) => {};
+  const volumeRecord = await Services.water.addWaterVolume({
+    waterValue,
+    date,
+    userId: req.user._id,
+  });
+  res.json(
+    ResponseMaker(201, 'Successfully add a water volume!', volumeRecord),
+  );
+};
 
-const deleteWaterVolumeController = async (req, res, next) => {};
+const editWaterVolumeController = async (req, res, next) => {
+  const { chosenCardId } = req.params;
+  const { waterValue, date } = req.body;
+
+  const volumeRecord = await Services.water.updateWaterVolume({
+    chosenCardId,
+    userId: req.user._id,
+    date,
+    waterValue,
+  });
+
+  res.json(
+    ResponseMaker(201, 'Successfully edited a water volume!', volumeRecord),
+  );
+};
+
+const deleteWaterVolumeController = async (req, res, next) => {
+  const id = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    // проверить вроде мтддлвар глобальный должен быть
+    return next(HttpError(404, 'Record not found'));
+  const volumeRecord = await Services.water.deleteWaterVolume(req.user.id, id);
+  if (!volumeRecord) return next(HttpError(404, 'Record not found'));
+  res.status(204).send();
+};
 
 const getDailyWaterVolumeController = async (req, res, next) => {};
 
