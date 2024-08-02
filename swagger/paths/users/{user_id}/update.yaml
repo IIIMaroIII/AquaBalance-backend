@@ -1,0 +1,80 @@
+tags:
+  - Users
+summary: Update user
+operationId: updateUser
+description: Update data about user with payload
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: user_id
+    required: true
+    schema:
+      type: string
+      example: 6687c71ada03d4549cb2930a
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          email:
+            description: User's email
+            type: string
+            example: inna_boiko@libero.it
+          password:
+            description: User's password
+            type: string
+            example: password
+          name:
+            description: User's name
+            type: string
+            example: Inna
+          gender:
+            description: User's gender
+            type: string
+            enum: ['woman', 'man']
+            default: woman
+            example: woman
+          weight:
+            description: User's weight
+            type: number
+            default: 0
+            example: 60
+          timeInSports:
+            description: User's time in sport
+            type: number
+            default: 0
+            example: 1.2
+          dailyNorma:
+            description: User's daily water norma
+            type: number
+            default: 1.8
+            example: 1.8
+          avatar:
+            description: User's avatar
+            type: string
+            example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
+responses:
+  '200':
+    description: Successfully update user's data!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully update user's data!
+            data:
+              type: object
+              $ref: ../../../components/schemas/user.yaml
+  '401':
+    $ref: ../../../components/responses/401.yaml

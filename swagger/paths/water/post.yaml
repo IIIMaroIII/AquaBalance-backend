@@ -1,0 +1,52 @@
+tags:
+  - Water
+summary: Add water's data
+operationId: addWater
+description: Add water's data with payload
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - volume
+          - date
+          - userId
+        properties:
+          volume:
+            description: Volume of water
+            type: number
+            example: 250
+          date:
+            description: Date
+            type: string # тут залежитеме від фронту
+            example: 2024-07-03 7:00
+          userId:
+            description: Water's user id
+            type: string
+            example: 65e4decdd286b30065d54af9
+responses:
+  '201':
+    description: Add water's data
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully registered a user!
+            data:
+              type: object
+              $ref: ../../components/schemas/water.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml

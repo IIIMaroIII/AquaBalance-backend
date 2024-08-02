@@ -1,0 +1,798 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "AquaBalance App",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "This is a documentation of students app"
+  },
+  "servers": [
+    {
+      "url": "https://aquabalance-backend.onrender.com"
+    },
+    {
+      "url": "http://127.0.0.1:5173"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Users operations"
+    },
+    {
+      "name": "Water",
+      "description": "Operations about users"
+    }
+  ],
+  "paths": {
+    "/users/register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Register user",
+        "operationId": "registerUser",
+        "description": "Register user with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "User's email",
+                    "type": "string",
+                    "example": "inna_boiko@libero.it"
+                  },
+                  "password": {
+                    "description": "User's password",
+                    "type": "string",
+                    "example": "password"
+                  },
+                  "name": {
+                    "description": "User's name",
+                    "type": "string",
+                    "example": "Inna"
+                  },
+                  "gender": {
+                    "description": "User's gender",
+                    "type": "string",
+                    "enum": [
+                      "woman",
+                      "man"
+                    ],
+                    "default": "woman",
+                    "example": "woman"
+                  },
+                  "weight": {
+                    "description": "User's weight",
+                    "type": "number",
+                    "default": 0,
+                    "example": 60
+                  },
+                  "timeInSports": {
+                    "description": "User's time in sport",
+                    "type": "number",
+                    "default": 0,
+                    "example": 1.2
+                  },
+                  "dailyNorma": {
+                    "description": "User's daily water norma",
+                    "type": "number",
+                    "default": 1.8,
+                    "example": 1.8
+                  },
+                  "avatar": {
+                    "description": "User's avatar",
+                    "type": "string",
+                    "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Register user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully registered a user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Login user",
+        "operationId": "loginUser",
+        "description": "Login user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "User's email",
+                    "type": "string",
+                    "example": "inna_boiko@libero.it"
+                  },
+                  "password": {
+                    "description": "Password",
+                    "type": "string",
+                    "example": "password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully logged in an user!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully logged in an user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "L/cWT3hTu0TDcQZXyUN7mdJCa7o="
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Logout user",
+        "operationId": "logoutUser",
+        "description": "Logout user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User was logout"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user",
+        "operationId": "updateUser",
+        "description": "Update data about user with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6687c71ada03d4549cb2930a"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "description": "User's email",
+                    "type": "string",
+                    "example": "inna_boiko@libero.it"
+                  },
+                  "password": {
+                    "description": "User's password",
+                    "type": "string",
+                    "example": "password"
+                  },
+                  "name": {
+                    "description": "User's name",
+                    "type": "string",
+                    "example": "Inna"
+                  },
+                  "gender": {
+                    "description": "User's gender",
+                    "type": "string",
+                    "enum": [
+                      "woman",
+                      "man"
+                    ],
+                    "default": "woman",
+                    "example": "woman"
+                  },
+                  "weight": {
+                    "description": "User's weight",
+                    "type": "number",
+                    "default": 0,
+                    "example": 60
+                  },
+                  "timeInSports": {
+                    "description": "User's time in sport",
+                    "type": "number",
+                    "default": 0,
+                    "example": 1.2
+                  },
+                  "dailyNorma": {
+                    "description": "User's daily water norma",
+                    "type": "number",
+                    "default": 1.8,
+                    "example": 1.8
+                  },
+                  "avatar": {
+                    "description": "User's avatar",
+                    "type": "string",
+                    "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully update user's data!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully update user's data!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/water": {
+      "post": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Add water's data",
+        "operationId": "addWater",
+        "description": "Add water's data with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "volume",
+                  "date",
+                  "userId"
+                ],
+                "properties": {
+                  "volume": {
+                    "description": "Volume of water",
+                    "type": "number",
+                    "example": 250
+                  },
+                  "date": {
+                    "description": "Date",
+                    "type": "string",
+                    "example": "2024-07-03 7:00"
+                  },
+                  "userId": {
+                    "description": "Water's user id",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Add water's data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully registered a user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/water"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/water/{water_id}": {
+      "get": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Get water's data by id",
+        "operationId": "getWaterById",
+        "description": "Get water's data by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "water_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6687c71ada03d4549cb2930a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get contact by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found contact with id 6687c71ada03d4549cb2930a"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/water"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Update water's data",
+        "operationId": "updateWater",
+        "description": "Update data about water with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "water_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6687c71ada03d4549cb2930a"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "volume": {
+                    "description": "Volume of water",
+                    "type": "number",
+                    "example": 250
+                  },
+                  "date": {
+                    "description": "Date",
+                    "type": "string",
+                    "example": "2024-07-03 7:00"
+                  },
+                  "userId": {
+                    "description": "Water's user id",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Register water's data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully update water's data!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/water"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Delete water's data",
+        "operationId": "deleteWater",
+        "description": "Delete water's data",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "water_id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6687c71ada03d4549cb2930a"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content - Water's data was successfully deleted"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "user": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "_id": {
+            "description": "User's id",
+            "type": "string",
+            "example": "6676ebc8d7c1721bb6534fc0"
+          },
+          "email": {
+            "description": "User's email",
+            "type": "string",
+            "example": "inna_boiko@libero.it"
+          },
+          "password": {
+            "description": "User's password",
+            "type": "string",
+            "example": "password"
+          },
+          "name": {
+            "description": "User's name",
+            "type": "string",
+            "example": "Inna",
+            "default": ""
+          },
+          "gender": {
+            "description": "User's gender",
+            "type": "string",
+            "enum": [
+              "woman",
+              "man"
+            ],
+            "default": "woman",
+            "example": "woman"
+          },
+          "weight": {
+            "description": "User's weight",
+            "type": "number",
+            "default": 0,
+            "example": 60
+          },
+          "timeInSports": {
+            "description": "User's time in sport",
+            "type": "number",
+            "default": 0,
+            "example": 1.2
+          },
+          "dailyNorma": {
+            "description": "User's daily water norma",
+            "type": "number",
+            "default": 1.8,
+            "example": 1.8
+          },
+          "avatar": {
+            "description": "User's avatar",
+            "type": "string",
+            "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+          }
+        }
+      },
+      "water": {
+        "type": "object",
+        "required": [
+          "volume",
+          "date",
+          "userId"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Water record id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "volume": {
+            "description": "Volume of water",
+            "type": "number",
+            "example": 250
+          },
+          "date": {
+            "description": "Date",
+            "type": "string",
+            "example": "2024-07-03 7:00"
+          },
+          "userId": {
+            "description": "Water's user id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          }
+        }
+      }
+    },
+    "responses": {
+      "401": {
+        "description": "Unauthorized!",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Please provide the Authorization header"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not found!"
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 409
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Email has had already in use!"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

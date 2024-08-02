@@ -17,7 +17,7 @@ const userSchema = new Schema(
     name: { type: String, default: null },
     gender: { type: String, default: null },
     dailyNorma: { type: String, default: 1.8 },
-    weight: { type: String, default: null },
+    weight: { type: Number, default: null },
     photoUrl: { type: String, default: null },
     timeInSports: { type: Number, default: null },
   },
