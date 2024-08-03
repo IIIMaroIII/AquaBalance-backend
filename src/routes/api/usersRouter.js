@@ -8,6 +8,8 @@ import { JoiSchemas } from '../../validation/index.js';
 
 export const usersRouter = express.Router();
 
+usersRouter.get('/amount', ctrlWrapper(Controllers.users.getAllUsersController));
+
 usersRouter.post(
   '/register',
   validateBody(JoiSchemas.auth.registerUserSchema),
