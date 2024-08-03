@@ -12,7 +12,26 @@ const deleteWaterVolumeController = async (req, res, next) => {};
 
 const getDailyWaterVolumeController = async (req, res, next) => {};
 
-const getMonthlyWaterVolumeController = async (req, res, next) => {};
+const getMonthlyWaterVolumeController = async (req, res, next) => {
+  const { chosenDate } = req.query;
+  console.log('chosenDate in controller', chosenDate);
+
+  const data = await Services.water.getMonthlyWaterVolume({
+    userId: req.user._id,
+    chosenDate,
+  });
+
+  if (!data) {
+    return next(HttpError(404, `You do not have any monthly volumes!`));
+  }
+  res.json(
+    ResponseMaker(
+      200,
+      "You have successfully fetched your monthly volumes!",
+      data,
+    ),
+  );
+};
 
 export const water = {
   addWaterVolumeController,
