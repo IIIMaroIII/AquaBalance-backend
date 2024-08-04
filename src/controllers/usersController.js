@@ -15,7 +15,7 @@ import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 const getAllUsersController = async (req, res, next) => {
   const amount = await Services.users.getAllUsers();
 
-  if (!amount) return next(HttpError(500, 'Internal Server Error'));
+  if (!amount) return next(HttpError(500, 'Some error has occurred after retrieving a data from MongoDB'));
 
   res.status(200).json({
     status: 200,
