@@ -33,11 +33,12 @@ const editWaterVolumeController = async (req, res, next) => {
 };
 
 const deleteWaterVolumeController = async (req, res, next) => {
-  const id = req.params.id;
-  if (!mongoose.Types.ObjectId.isValid(id))
-    // проверить вроде мтддлвар глобальный должен быть
-    return next(HttpError(404, 'Record not found'));
-  const volumeRecord = await Services.water.deleteWaterVolume(req.user.id, id);
+  const { chosenCardId } = req.params;
+
+  const volumeRecord = await Services.water.deleteWaterVolume(
+    req.user.id,
+    chosenCardId,
+  );
   if (!volumeRecord) return next(HttpError(404, 'Record not found'));
   res.status(204).send();
 };
