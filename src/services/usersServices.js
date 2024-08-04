@@ -9,7 +9,7 @@ import { ENV_VARS, JWT, SMTP } from '../constants/constants.js';
 import { sendEmail } from '../utils/sendMail.js';
 // import { googleOauth } from '../utils/googleOauth.js';
 
-export const getAllUsers = async () => {
+const getAllUsers = async () => {
   const users = await Models.UserModel.find();
   return users.length;
 };
@@ -132,6 +132,7 @@ const resetPwd = async (payload) => {
 // const loginOrSignupWithGoogle = async (code) => {};
 
 export const users = {
+  getAllUsers,
   registerUser,
   updateUser,
   loginUser,

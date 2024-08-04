@@ -4,7 +4,6 @@ import {
   // USER
 } from '../constants/constants.js';
 import { Services } from '../services/index.js';
-import { getAllUsers } from '../services/usersServices.js';
 import { GenerateCookie } from '../utils/GenerateCookie.js';
 import { HttpError } from '../utils/HttpError.js';
 import { env } from '../utils/env.js';
@@ -14,14 +13,14 @@ import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
 const getAllUsersController = async (req, res, next) => {
-  const user = await getAllUsers();
+  const amount = await Services.users.getAllUsers();
 
-  if (!user) return next(HttpError(404, 'User not found'));
+  if (!amount) return next(HttpError(500, 'Internal Server Error'));
 
   res.status(200).json({
     status: 200,
-    message: `Successfully found number of all users`,
-    data: user,
+    message: `The number of users has been successfully found`,
+    data: {totalUsers: amount},
   });
 };
 
