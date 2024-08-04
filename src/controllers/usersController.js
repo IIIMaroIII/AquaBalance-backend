@@ -12,6 +12,18 @@ import { ResponseMaker } from '../utils/responseMaker.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
+const getAllUsersController = async (req, res, next) => {
+  const amount = await Services.users.getAllUsers();
+
+  if (!amount) return next(HttpError(500, 'Some error has occurred after retrieving a data from MongoDB'));
+
+  res.status(200).json({
+    status: 200,
+    message: `The number of users has been successfully found`,
+    data: {totalUsers: amount},
+  });
+};
+
 const RegisterController = async (req, res, next) => {
   const user = await Services.users.registerUser(req.body);
   if (!user) return next(HttpError(500, 'Internal Server Error'));
@@ -143,6 +155,7 @@ const ResetPwdController = async (req, res) => {
 // const loginWithGoogleController = async (req, res) => {};
 
 export const users = {
+  getAllUsersController,
   RegisterController,
   LoginController,
   RefreshController,
