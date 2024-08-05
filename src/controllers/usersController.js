@@ -20,7 +20,7 @@ const RegisterController = async (req, res, next) => {
 };
 
 const LoginController = async (req, res, next) => {
-   const session = await Services.users.loginUser(req.body);
+  const session = await Services.users.loginUser(req.body);
   if (!session) return next(HttpError(500, 'Internal Server Error'));
 
   GenerateCookie(session, res);
