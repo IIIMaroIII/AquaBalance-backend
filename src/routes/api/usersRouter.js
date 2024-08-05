@@ -4,11 +4,13 @@ import { ctrlWrapper } from '../../utils/ctrlWrapper.js';
 import { Controllers } from '../../controllers/index.js';
 import { authenticate } from '../../middlewares/authenticate.js';
 import { JoiSchemas } from '../../validation/index.js';
-// import { upload } from '../../middlewares/upload.js';
+import { upload } from '../../middlewares/upload.js';
 
 export const usersRouter = express.Router();
 
 usersRouter.get('/amount', ctrlWrapper(Controllers.users.getAllUsersController));
+
+usersRouter.get('/user-info', authenticate, ctrlWrapper(Controllers.users.getUserInfoController));
 
 usersRouter.post(
   '/register',
@@ -32,8 +34,9 @@ usersRouter.post(
 
 usersRouter.patch(
   '/update',
-  // upload.single('photoUrl'),
-  // authenticate,
+  upload.single('photoUrl'),
+  // upload.none(),
+  authenticate,
   validateBody(JoiSchemas.auth.updateUserSchema),
   ctrlWrapper(Controllers.users.UpdateController),
 );
