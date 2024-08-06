@@ -2,59 +2,50 @@ import mongoose from 'mongoose';
 import { Services } from '../services/index.js';
 import { ResponseMaker } from '../utils/responseMaker.js';
 import { HttpError } from '../utils/HttpError.js';
-import { parseISO } from 'date-fns';
 
-const addWaterVolumeController = async (req, res) => {};
+const addWaterVolumeController = async (req, res) => {
+  const { waterValue, date } = req.body;
 
-const editWaterVolumeController = async (req, res, next) => {};
-
-const deleteWaterVolumeController = async (req, res, next) => { };
-
-
-
-const getDailyWaterVolumeController = async (req, res, next) => {
-  const { chosenDate } = req.query;
-
-  const data = await Services.water.getDailyWaterVolume({
+  const volumeRecord = await Services.water.addWaterVolume({
+    waterValue,
+    date,
     userId: req.user._id,
-    chosenDate,
   });
-
-  if (data.length === 0) {
-    return next(HttpError(200, `You do not have any daily volumes!`, data));
-  }
-
   res.json(
-    ResponseMaker(
-      200,
-      "You’ve successfully fetched your volumes for the chosen day!",
-      data,
-    ),
+    ResponseMaker(201, 'Successfully add a water volume!', volumeRecord),
   );
 };
 
+const editWaterVolumeController = async (req, res, next) => {
+  const { chosenCardId } = req.params;
+  const { waterValue, date } = req.body;
 
-
-const getMonthlyWaterVolumeController = async (req, res, next) => {
-  const { chosenDate } = req.query;
-  console.log('chosenDate in controller', chosenDate);
-
-  const data = await Services.water.getMonthlyWaterVolume({
+  const volumeRecord = await Services.water.updateWaterVolume({
+    chosenCardId,
     userId: req.user._id,
-    chosenDate,
+    date,
+    waterValue,
   });
 
-  if (!data) {
-    return next(HttpError(404, `You do not have any monthly volumes!`));
-  }
   res.json(
-    ResponseMaker(
-      200,
-      "You have successfully fetched your monthly volumes!",
-      data,
-    ),
+    ResponseMaker(201, 'Successfully edited a water volume!', volumeRecord),
   );
 };
+
+const deleteWaterVolumeController = async (req, res, next) => {
+  const { chosenCardId } = req.params;
+
+  const volumeRecord = await Services.water.deleteWaterVolume(
+    req.user.id,
+    chosenCardId,
+  );
+  if (!volumeRecord) return next(HttpError(404, 'Record not found'));
+  res.status(204).send();
+};
+
+const getDailyWaterVolumeController = async (req, res, next) => {};
+
+const getMonthlyWaterVolumeController = async (req, res, next) => {};
 
 export const water = {
   addWaterVolumeController,

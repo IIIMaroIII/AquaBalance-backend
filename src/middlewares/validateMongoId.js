@@ -7,11 +7,11 @@ export const validateMongoId =
     const id = req.params[idName];
 
     if (!id) {
-      throw new Error('Id wasn`t provided to validateMongoId middleware');
+      return next(HttpError(400, `The id ${id} was not provided!`));
     }
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return next(HttpError(404, `The ${id} has not validated!`));
+      return next(HttpError(400, `The ${id} has not validated!`));
     }
     return next();
   };

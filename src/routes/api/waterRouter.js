@@ -5,6 +5,7 @@ import { ctrlWrapper } from '../../utils/ctrlWrapper.js';
 import { Controllers } from '../../controllers/index.js';
 import { authenticate } from '../../middlewares/authenticate.js';
 import multer from 'multer';
+import { validateMongoId } from '../../middlewares/validateMongoId.js';
 
 export const waterRouter = express.Router();
 const upload = multer();
@@ -21,12 +22,14 @@ waterRouter.post(
 waterRouter.patch(
   '/:chosenCardId',
   upload.none(),
+  validateMongoId('chosenCardId'),
   // validateBody(JoiSchemas.water.editWaterSchema),
   ctrlWrapper(Controllers.water.editWaterVolumeController),
 );
 
 waterRouter.delete(
   '/:chosenCardId',
+  validateMongoId('chosenCardId'),
   ctrlWrapper(Controllers.water.deleteWaterVolumeController),
 );
 
