@@ -34,6 +34,7 @@ const getDailyWaterVolume = async ({ userId, chosenDate }) => {
     return dailyItems;
   } catch (err) {
     console.log('err', err);
+    return HttpError(500, 'Internal server error', err);
   }
 };
 
