@@ -8,9 +8,16 @@ import { upload } from '../../middlewares/upload.js';
 
 export const usersRouter = express.Router();
 
-usersRouter.get('/amount', ctrlWrapper(Controllers.users.getAllUsersController));
+usersRouter.get(
+  '/amount',
+  ctrlWrapper(Controllers.users.getAllUsersController),
+);
 
-usersRouter.get('/user-info', authenticate, ctrlWrapper(Controllers.users.getUserInfoController));
+usersRouter.get(
+  '/user-info',
+  authenticate,
+  ctrlWrapper(Controllers.users.getUserInfoController),
+);
 
 usersRouter.post(
   '/register',
@@ -35,7 +42,6 @@ usersRouter.post(
 usersRouter.patch(
   '/update',
   upload.single('photoUrl'),
-  // upload.none(),
   authenticate,
   validateBody(JoiSchemas.auth.updateUserSchema),
   ctrlWrapper(Controllers.users.UpdateController),
@@ -60,6 +66,6 @@ usersRouter.get(
 
 usersRouter.post(
   '/confirm-oauth',
-  // validateBody(JoiSchemas.auth.loginWithGoogleAuthSchema),
+  validateBody(JoiSchemas.auth.loginWithGoogleAuthSchema),
   ctrlWrapper(Controllers.users.loginWithGoogleController),
 );

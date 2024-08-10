@@ -8,7 +8,7 @@ export const GenerateCookie = (session, res) => {
     secure: true,
   });
 
-  res.cookie(COOKIE.SESSION_ID, session.id, {
+  res.cookie(COOKIE.SESSION_ID, session._id, {
     httpOnly: true,
     sameSite: 'None',
     expires: new Date(Date.now() + TIME_DURATION.THIRTY_DAYS),

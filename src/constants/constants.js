@@ -2,7 +2,7 @@ import path from 'node:path';
 
 export const SERVER_DOMAIN = 'https://aquabalance-backend.onrender.com';
 export const LOCALHOST = 'http://localhost:5173';
-export const DEPLOY_FRONTEND = '';
+export const DEPLOY_FRONTEND = 'https://aqua-balance-frontend.vercel.app';
 
 export const ALLOWED_ORIGINS = [
   'http://localhost:5173',
