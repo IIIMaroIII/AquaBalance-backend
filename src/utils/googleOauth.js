@@ -9,20 +9,18 @@ const googleOauthClient = new OAuth2Client({
   redirectUri: GOOGLE_OAUTH.REDIRECT_URIS,
 });
 
-const generateAuthUrl = () => {
-  return googleOauthClient.generateAuthUrl({
-    access_type: 'offline',
+const generateAuthUrl = () =>
+  googleOauthClient.generateAuthUrl({
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile',
     ],
   });
-};
 
 const validateCode = async (code) => {
   const response = await googleOauthClient.getToken(code);
 
-  if (!response?.tokens?.id_token) throw HttpError(401, 'Unauthorized');
+  if (!response.tokens.id_token) throw HttpError(401, 'Unauthorized');
 
   const ticket = await googleOauthClient.verifyIdToken({
     idToken: response.tokens.id_token,

@@ -7,7 +7,7 @@ import { Services } from '../services/index.js';
 import { GenerateCookie } from '../utils/GenerateCookie.js';
 import { HttpError } from '../utils/HttpError.js';
 import { env } from '../utils/env.js';
-// import { googleOauth } from '../utils/googleOauth.js';
+import { googleOauth } from '../utils/googleOauth.js';
 import { ResponseMaker } from '../utils/responseMaker.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
@@ -110,9 +110,7 @@ const UpdateController = async (req, res, next) => {
   );
 
   if (!result) {
-    return next(
-      HttpError(404, `The user was not found!`),
-    );
+    return next(HttpError(404, `The user was not found!`));
   }
 
   res.status(200).json({
@@ -156,9 +154,31 @@ const ResetPwdController = async (req, res) => {
   res.json(ResponseMaker(200, 'The password has been successfully reset!', {}));
 };
 
-// const getGoogleAuthUrlController = async (req, res) => {};
+const getGoogleAuthUrlController = async (req, res) => {
+  const url = googleOauth.generateAuthUrl();
 
-// const loginWithGoogleController = async (req, res) => {};
+  res.json({
+    status: 200,
+    message: 'Successfully get Google OAuth url!',
+    data: {
+      url,
+    },
+  });
+};
+
+const loginWithGoogleController = async (req, res, next) => {
+  const session = await Services.users.loginOrSignupWithGoogle(req.body.code);
+  if (!session) return next(HttpError(500, 'Internal Server Error'));
+  GenerateCookie(session, res);
+
+  res.json({
+    status: 200,
+    message: 'Successfully logged in via Google OAuth!',
+    data: {
+      accessToken: session.accessToken,
+    },
+  });
+};
 
 export const users = {
   getAllUsersController,
@@ -169,7 +189,7 @@ export const users = {
   LogoutController,
   RequestResetPasswordController,
   ResetPwdController,
-  // getGoogleAuthUrlController,
-  // loginWithGoogleController,
+  getGoogleAuthUrlController,
+  loginWithGoogleController,
   UpdateController,
 };

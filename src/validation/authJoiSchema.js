@@ -89,13 +89,18 @@ const resetPwdSchema = joi.object({
   }),
 });
 
-// const loginWithGoogleAuthSchema = joi.object({});
+const loginWithGoogleAuthSchema = joi.object({
+  code: joi.string().required().messages({
+    'string.base': 'Code should be a string',
+    'any.required': 'Codes is required',
+  }),
+});
 
 export const auth = {
   registerUserSchema,
   loginUserSchema,
   requestResetPasswordSchema,
   resetPwdSchema,
-  // loginWithGoogleAuthSchema,
+  loginWithGoogleAuthSchema,
   updateUserSchema,
 };
