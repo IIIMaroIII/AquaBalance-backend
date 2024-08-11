@@ -5,11 +5,7 @@ import { Models } from '../db/models/index.js';
 import { HttpError } from '../utils/HttpError.js';
 import { NewSession } from '../utils/NewSession.js';
 import { env } from '../utils/env.js';
-import {
-  ENV_VARS,
-  JWT,
-  SMTP,
-} from '../constants/constants.js';
+import { ENV_VARS, JWT, SMTP } from '../constants/constants.js';
 import { sendEmail } from '../utils/sendMail.js';
 import { googleOauth } from '../utils/googleOauth.js';
 
@@ -51,7 +47,7 @@ const loginUser = async (payload) => {
 const updateUser = async (_id, payload) => {
   const user = await Models.UserModel.findOneAndUpdate(_id, payload, {
     new: true,
-    select: '-createdAt -updatedAt',
+    select: '-createdAt -updatedAt -_id',
   });
 
   return user;

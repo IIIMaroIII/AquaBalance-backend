@@ -42,16 +42,33 @@ const updateUserSchema = joi.object({
     'string.min': 'Name should have at least 2 characters',
     'string.max': 'Name should have at most 32 characters',
   }),
-  gender: joi.string().valid('woman', 'man').default('woman'),
+  gender: joi
+    .string()
+    .valid('woman', 'man')
+    .default('woman')
+    .required()
+    .messages({
+      'string.base': 'The gender must be a string',
+      'any.required': 'The gender is required',
+    }),
   dailyNorma: joi
     .number()
-    .allow('')
     .positive('Value must be a positive number')
     .precision(1)
-    .default(1.8),
-  weight: joi.number().default(0).positive(),
+    .required()
+    .messages({
+      'string.base': 'The daily norma must be a number',
+      'any.required': 'The daily norma is required',
+    }),
+  weight: joi.number().positive().required().messages({
+    'string.base': 'The weight must be a number',
+    'any.required': 'The weight is required',
+  }),
   photoUrl: joi.string().trim(),
-  timeInSports: joi.number().default(0).allow(''),
+  activeTime: joi.number().required().messages({
+    'string.base': 'The weight must be a number',
+    'any.required': 'The weight is required',
+  }),
   email: joi
     .string()
     .allow('')
