@@ -5,19 +5,23 @@ operationId: updateUser
 description: Update data about user with payload
 security:
   - bearerAuth: []
-parameters:
-  - in: path
-    name: user_id
-    required: true
-    schema:
-      type: string
-      example: 6687c71ada03d4549cb2930a
+# parameters:
+#   - in: path
+#     name: user_id
+#     required: true
+#     schema:
+#       type: string
+#       example: 6687c71ada03d4549cb2930a
 requestBody:
   content:
     multipart/form-data:
       schema:
         type: object
         properties:
+          user_id:
+            description: User's id
+            type: string
+            example: 6687c71ada03d4549cb2930a
           email:
             description: User's email
             type: string
@@ -75,6 +79,6 @@ responses:
               example: Successfully update user's data!
             data:
               type: object
-              $ref: ../../../components/schemas/user.yaml
+              $ref: ../../components/schemas/user.yaml
   '401':
-    $ref: ../../../components/responses/401.yaml
+    $ref: ../../components/responses/401.yaml
