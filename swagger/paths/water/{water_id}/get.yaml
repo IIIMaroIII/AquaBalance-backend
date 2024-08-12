@@ -7,7 +7,7 @@ security:
   - bearerAuth: []
 parameters:
   - in: path
-    name: water_id
+    name: chosenCardId
     required: true
     schema:
       type: string

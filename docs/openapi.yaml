@@ -12,12 +12,12 @@ tags:
   - name: Water
     description: Operations about users
 servers:
-  - url: https://aquabalance-backend.onrender.com
+  # - url: https://aquabalance-backend.onrender.com
   - url: http://127.0.0.1:5173
 paths:
-  # /v1/users/amount:
-  #   get:
-  #     $ref: ../swagger/paths/users/amount.yaml
+  /v1/users/amount:
+    get:
+      $ref: ../swagger/paths/users/amount.yaml
   /v1/users/register:
     post:
       $ref: ../swagger/paths/users/register.yaml
@@ -33,16 +33,21 @@ paths:
   /v1/users/update:
     patch:
       $ref: ../swagger/paths/users/update.yaml
-  # /v1/users/refresh:
-  #   post:
-  #     $ref: ../swagger/paths/users/refresh.yaml
-  # /request-reset-password:
-
-  # /reset-pwd:
-
-  # /get-oauth-url:
-
-  # /confirm-oauth:
+  /v1/users/refresh:
+    post:
+      $ref: ../swagger/paths/users/refresh.yaml
+  /request-reset-password:
+    post:
+      $ref: ../swagger/paths/users/requestResetPassword.yaml
+  /reset-pwd:
+    post:
+      $ref: ../swagger/paths/users/resetPwd.yaml
+  /get-oauth-url:
+    get:
+      $ref: ../swagger/paths/users/getOauthUrl.yaml
+  /confirm-oauth:
+    post:
+      $ref: ../swagger/paths/users/confirmOauth.yaml
 
   # /v1/water:
   #   post:
@@ -50,13 +55,13 @@ paths:
   # /v1/water/daily:
   # /v1/water/monthly:
 
-  # /water/{water_id}:
+  # /water/{chosenCardId}:
   #   get:
-  #     $ref: ../swagger/paths/water/{water_id}/get.yaml
+  #     $ref: ../swagger/paths/water/{chosenCardId}/get.yaml
   #   patch:
-  #     $ref: ../swagger/paths/water/{water_id}/patch.yaml
+  #     $ref: ../swagger/paths/water/{chosenCardId}/patch.yaml
   #   delete:
-  #     $ref: ../swagger/paths/water/{water_id}/delete.yaml
+  #     $ref: ../swagger/paths/water/{chosenCardId}/delete.yaml
 components:
   securitySchemes:
     bearerAuth:

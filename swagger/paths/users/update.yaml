@@ -5,57 +5,44 @@ operationId: updateUser
 description: Update data about user with payload
 security:
   - bearerAuth: []
-# parameters:
-#   - in: path
-#     name: user_id
-#     required: true
-#     schema:
-#       type: string
-#       example: 6687c71ada03d4549cb2930a
 requestBody:
+  required: true
   content:
     multipart/form-data:
       schema:
         type: object
         properties:
-          user_id:
-            description: User's id
-            type: string
-            example: 6687c71ada03d4549cb2930a
           email:
             description: User's email
             type: string
             example: inna_boiko@libero.it
-          password:
-            description: User's password
-            type: string
-            example: password
           name:
             description: User's name
             type: string
+            default: null
             example: Inna
           gender:
             description: User's gender
             type: string
-            enum: ['woman', 'man']
+            enum: [woman, man]
             default: woman
             example: woman
           weight:
             description: User's weight
             type: number
-            default: 0
+            default: null
             example: 60
-          timeInSports:
+          activeTime:
             description: User's time in sport
             type: number
-            default: 0
+            default: null
             example: 1.2
           dailyNorma:
             description: User's daily water norma
             type: number
             default: 1.8
             example: 1.8
-          avatar:
+          photoUrl:
             description: User's avatar
             type: string
             example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
@@ -63,7 +50,7 @@ responses:
   '200':
     description: Successfully update user's data!
     content:
-      application/json:
+      multipart/form-data:
         schema:
           type: object
           required:
@@ -79,6 +66,11 @@ responses:
               example: Successfully update user's data!
             data:
               type: object
-              $ref: ../../components/schemas/user.yaml
+              # $ref: ../../components/schemas/userUpdate.yaml
+              $ref: ../../components/schemas/users.yaml
   '401':
     $ref: ../../components/responses/401.yaml
+  '404':
+    $ref: ../../components/responses/404.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

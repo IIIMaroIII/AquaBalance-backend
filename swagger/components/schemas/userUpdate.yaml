@@ -1,7 +1,6 @@
 type: object
 required:
-  - email
-  - password
+  - _id
 properties:
   _id:
     description: User's id
@@ -11,37 +10,34 @@ properties:
     description: User's email
     type: string
     example: inna_boiko@libero.it
-  password:
-    description: User's password
-    type: string
-    example: password
   name:
     description: User's name
     type: string
     example: Inna
-    default: ''
+    default: null
   gender:
     description: User's gender
     type: string
-    enum: ['woman', 'man']
+    enum: [woman, man]
     default: woman
     example: woman
   weight:
     description: User's weight
     type: number
-    default: 0
+    default: null
     example: 60
-  timeInSports:
+  activeTime:
     description: User's time in sport
     type: number
-    default: 0
+    default: null
     example: 1.2
   dailyNorma:
     description: User's daily water norma
     type: number
     default: 1.8
     example: 1.8
-  avatar:
+  photoUrl:
     description: User's avatar
     type: string
+    default: null
     example: https://res.cloudinary.com/uqwgdu/image/upload/image.png

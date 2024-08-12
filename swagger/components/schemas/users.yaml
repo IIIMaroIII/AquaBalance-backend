@@ -1,0 +1,47 @@
+type: object
+required:
+  - email
+  - password
+properties:
+  _id:
+    description: User's id is automatically created by database
+    type: string
+    example: 66b9c9b0208d8340251b411c
+  email:
+    description: User's email
+    type: string
+    example: test@swagger.com
+  password:
+    description: User's password
+    type: string
+    example: test
+  name:
+    description: User's name
+    type: string
+    example: Swagger
+    default: null
+  gender:
+    description: User's gender
+    type: string
+    enum: [woman, man]
+    default: woman
+    example: woman
+  weight:
+    description: User's weight
+    type: number
+    default: null
+    example: 60
+  activeTime:
+    description: User's time in sport
+    type: number
+    default: null
+    example: 1.2
+  dailyNorma:
+    description: User's daily water norma
+    type: number
+    default: 1.8
+    example: 1.8
+  photoUrl:
+    description: User's avatar
+    type: string
+    example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
