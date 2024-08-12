@@ -2,7 +2,7 @@ type: object
 required:
   - volume
   - date
-  - waterId
+  - userId
 properties:
   _id:
     description: Water record id

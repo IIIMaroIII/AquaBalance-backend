@@ -36,32 +36,32 @@ paths:
   /v1/users/refresh:
     post:
       $ref: ../swagger/paths/users/refresh.yaml
-  /request-reset-password:
+  /v1/request-reset-password:
     post:
       $ref: ../swagger/paths/users/requestResetPassword.yaml
-  /reset-pwd:
+  /v1/reset-pwd:
     post:
       $ref: ../swagger/paths/users/resetPwd.yaml
-  /get-oauth-url:
+  /v1/get-oauth-url:
     get:
       $ref: ../swagger/paths/users/getOauthUrl.yaml
-  /confirm-oauth:
+  /v1/confirm-oauth:
     post:
       $ref: ../swagger/paths/users/confirmOauth.yaml
-
-  # /v1/water:
-  #   post:
-  #     $ref: ../swagger/paths/water/post.yaml
-  # /v1/water/daily:
-  # /v1/water/monthly:
-
-  # /water/{chosenCardId}:
-  #   get:
-  #     $ref: ../swagger/paths/water/{chosenCardId}/get.yaml
-  #   patch:
-  #     $ref: ../swagger/paths/water/{chosenCardId}/patch.yaml
-  #   delete:
-  #     $ref: ../swagger/paths/water/{chosenCardId}/delete.yaml
+  /v1/water:
+    post:
+      $ref: ../swagger/paths/water/post.yaml
+  /v1/water/daily:
+    get:
+      $ref: ../swagger/paths/water/daily.yaml
+  /v1/water/monthly:
+    get:
+      $ref: ../swagger/paths/water/monthly.yaml
+  /v1/water/{chosenCardId}:
+    patch:
+      $ref: ../swagger/paths/water/{chosenCardId}/patch.yaml
+    delete:
+      $ref: ../swagger/paths/water/{chosenCardId}/delete.yaml
 components:
   securitySchemes:
     bearerAuth:

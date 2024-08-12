@@ -15,18 +15,18 @@ requestBody:
           email:
             description: User's email
             type: string
-            example: inna_boiko@libero.it
+            example: test@swagger.com
           name:
             description: User's name
             type: string
             default: null
-            example: Inna
+            example: User
           gender:
             description: User's gender
             type: string
             enum: [woman, man]
             default: woman
-            example: woman
+            example: man
           weight:
             description: User's weight
             type: number
@@ -35,12 +35,10 @@ requestBody:
           activeTime:
             description: User's time in sport
             type: number
-            default: null
             example: 1.2
           dailyNorma:
             description: User's daily water norma
             type: number
-            default: 1.8
             example: 1.8
           photoUrl:
             description: User's avatar
@@ -66,7 +64,6 @@ responses:
               example: Successfully update user's data!
             data:
               type: object
-              # $ref: ../../components/schemas/userUpdate.yaml
               $ref: ../../components/schemas/users.yaml
   '401':
     $ref: ../../components/responses/401.yaml

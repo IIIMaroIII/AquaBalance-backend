@@ -274,13 +274,13 @@
                   "email": {
                     "description": "User's email",
                     "type": "string",
-                    "example": "inna_boiko@libero.it"
+                    "example": "test@swagger.com"
                   },
                   "name": {
                     "description": "User's name",
                     "type": "string",
                     "default": null,
-                    "example": "Inna"
+                    "example": "User"
                   },
                   "gender": {
                     "description": "User's gender",
@@ -290,7 +290,7 @@
                       "man"
                     ],
                     "default": "woman",
-                    "example": "woman"
+                    "example": "man"
                   },
                   "weight": {
                     "description": "User's weight",
@@ -301,13 +301,11 @@
                   "activeTime": {
                     "description": "User's time in sport",
                     "type": "number",
-                    "default": null,
                     "example": 1.2
                   },
                   "dailyNorma": {
                     "description": "User's daily water norma",
                     "type": "number",
-                    "default": 1.8,
                     "example": 1.8
                   },
                   "photoUrl": {
@@ -416,7 +414,7 @@
         }
       }
     },
-    "/request-reset-password": {
+    "/v1/request-reset-password": {
       "post": {
         "tags": [
           "Users"
@@ -435,7 +433,7 @@
                     "type": "string",
                     "format": "email",
                     "description": "The user's email address",
-                    "example": "user@example.com"
+                    "example": "test@swagger.com"
                   }
                 }
               }
@@ -476,7 +474,7 @@
         "security": []
       }
     },
-    "/reset-pwd": {
+    "/v1/reset-pwd": {
       "post": {
         "tags": [
           "Users"
@@ -541,7 +539,7 @@
         "security": []
       }
     },
-    "/get-oauth-url": {
+    "/v1/get-oauth-url": {
       "get": {
         "tags": [
           "Users"
@@ -591,7 +589,7 @@
         }
       }
     },
-    "/confirm-oauth": {
+    "/v1/confirm-oauth": {
       "post": {
         "tags": [
           "Users"
@@ -657,6 +655,330 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/v1/water": {
+      "post": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Add water's data",
+        "operationId": "addWater",
+        "description": "Add water's data with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "volume",
+                  "date",
+                  "userId"
+                ],
+                "properties": {
+                  "volume": {
+                    "description": "Volume of water",
+                    "type": "number",
+                    "example": 250
+                  },
+                  "date": {
+                    "description": "Date",
+                    "type": "string",
+                    "example": "2024-07-03 7:00"
+                  },
+                  "userId": {
+                    "description": "Water's user id",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Add water's data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully registered a user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/water"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/v1/water/daily": {
+      "get": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Get list of water records by day",
+        "operationId": "getDailyWater",
+        "description": "Get list of water records",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "chosenDate",
+            "schema": {
+              "type": "string"
+            },
+            "example": "2024-08-12"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Gets a daily water volume",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully get a daily water volume!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/water"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/v1/water/monthly": {
+      "get": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Get list of water records by month",
+        "operationId": "getMonthWater",
+        "description": "Get list of water records",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "chosenDate",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2024-08"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Gets a monthly water volume",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully get a monthly water volume!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/water"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/v1/water/{chosenCardId}": {
+      "patch": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Update water's data",
+        "operationId": "updateWater",
+        "description": "Update data about water with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "chosenCardId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6687c71ada03d4549cb2930a"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "volume": {
+                    "description": "Volume of water",
+                    "type": "number",
+                    "example": 250
+                  },
+                  "date": {
+                    "description": "Date",
+                    "type": "string",
+                    "example": "2024-07-03 7:00"
+                  },
+                  "userId": {
+                    "description": "Water's user id",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Register water's data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully update water's data!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/water"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Water"
+        ],
+        "summary": "Delete water's data",
+        "operationId": "deleteWater",
+        "description": "Delete water's data",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "chosenCardId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6687c71ada03d4549cb2930a"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content - Water's data was successfully deleted"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           }
         }
       }
@@ -739,6 +1061,37 @@
             "description": "User's avatar",
             "type": "string",
             "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+          }
+        }
+      },
+      "water": {
+        "type": "object",
+        "required": [
+          "volume",
+          "date",
+          "userId"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Water record id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "volume": {
+            "description": "Volume of water",
+            "type": "number",
+            "default": 50,
+            "example": 250
+          },
+          "date": {
+            "description": "Date",
+            "type": "string",
+            "example": "2024-07-03 7:00"
+          },
+          "userId": {
+            "description": "Water's user id",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
           }
         }
       }
