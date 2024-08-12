@@ -5,7 +5,7 @@ export const NewSession = (userId) => {
   const accessToken = randomBytes(30).toString('base64');
   const refreshToken = randomBytes(30).toString('base64');
   const accessTokenValidUntil = new Date(
-    Date.now() + TIME_DURATION.FIFTEEN_MIN,
+    Date.now() + TIME_DURATION.TEN_SEC,
   );
   const refreshTokenValidUntil = new Date(
     Date.now() + TIME_DURATION.THIRTY_DAYS,
