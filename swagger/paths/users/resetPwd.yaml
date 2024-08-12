@@ -32,7 +32,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Password reset successfully!
+              example: The password has been successfully reset!
             data:
               type: object
   '400':
