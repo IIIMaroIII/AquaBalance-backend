@@ -12,7 +12,7 @@ tags:
   - name: Water
     description: Operations about users
 servers:
-  # - url: https://aquabalance-backend.onrender.com
+  - url: https://aquabalance-backend.onrender.com
   - url: http://127.0.0.1:5173
 paths:
   /v1/users/amount:

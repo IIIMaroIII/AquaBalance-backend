@@ -11,6 +11,9 @@
   },
   "servers": [
     {
+      "url": "https://aquabalance-backend.onrender.com"
+    },
+    {
       "url": "http://127.0.0.1:5173"
     }
   ],
