@@ -9,6 +9,7 @@ export const ALLOWED_ORIGINS = [
   'https://aqua-balance-frontend.vercel.app',
   'https://aqua-balance-frontend-git-main-iiimaroiiis-projects.vercel.app',
   'https://aqua-balance-frontend-ox98gif6q-iiimaroiiis-projects.vercel.app',
+  'https://aquabalance-backend.onrender.com',
 ];
 
 export const ENV_VARS = {
