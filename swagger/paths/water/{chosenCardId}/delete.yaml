@@ -1,7 +1,7 @@
 tags:
   - Water
 summary: Delete water's data
-operationId: deleteWater
+operationId: deleteWaterVolume
 description: Delete water's data
 security:
   - bearerAuth: []

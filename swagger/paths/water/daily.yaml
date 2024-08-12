@@ -1,7 +1,7 @@
 tags:
   - Water
 summary: Get list of water records by day
-operationId: getDailyWater
+operationId: getDailyWaterVolume
 description: 'Get list of water records'
 security:
   - bearerAuth: []
@@ -28,7 +28,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully get a daily water volume!
+              example: You have successfully fetched your volumes for the chosen day!
             data:
               type: array
               items:

@@ -254,6 +254,109 @@
         }
       }
     },
+    "/v1/users/user-info": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get current user's profile",
+        "description": "Information about the currently logged-in user",
+        "operationId": "getUserInfo",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User info was successfully found",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User info was successfully found"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "description": "User's id",
+                              "example": "607f1f77bcf86cd799439011"
+                            },
+                            "email": {
+                              "type": "string",
+                              "format": "email",
+                              "description": "User's email address",
+                              "example": "test@swagger.com"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "User's name",
+                              "example": "User"
+                            },
+                            "gender": {
+                              "description": "User's gender",
+                              "type": "string",
+                              "enum": [
+                                "woman",
+                                "man"
+                              ],
+                              "default": "woman",
+                              "example": "man"
+                            },
+                            "weight": {
+                              "description": "User's weight",
+                              "type": "number",
+                              "default": null,
+                              "example": 60
+                            },
+                            "activeTime": {
+                              "description": "User's time in sport",
+                              "type": "number",
+                              "example": 1.2
+                            },
+                            "dailyNorma": {
+                              "description": "User's daily water norma",
+                              "type": "number",
+                              "example": 1.8
+                            },
+                            "photoUrl": {
+                              "description": "User's avatar",
+                              "type": "string",
+                              "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/v1/users/update": {
       "patch": {
         "tags": [
@@ -668,7 +771,7 @@
           "Water"
         ],
         "summary": "Add water's data",
-        "operationId": "addWater",
+        "operationId": "addWaterVolume",
         "description": "Add water's data with payload",
         "security": [
           {
@@ -694,12 +797,12 @@
                   "date": {
                     "description": "Date",
                     "type": "string",
-                    "example": "2024-07-03 7:00"
+                    "example": "2024-08-12T05:00:00.000Z"
                   },
                   "userId": {
                     "description": "Water's user id",
                     "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
+                    "example": "66b9c9b0208d8340251b411c"
                   }
                 }
               }
@@ -725,7 +828,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully registered a user!"
+                      "example": "Successfully add a water volume!"
                     },
                     "data": {
                       "type": "object",
@@ -748,7 +851,7 @@
           "Water"
         ],
         "summary": "Get list of water records by day",
-        "operationId": "getDailyWater",
+        "operationId": "getDailyWaterVolume",
         "description": "Get list of water records",
         "security": [
           {
@@ -784,7 +887,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully get a daily water volume!"
+                      "example": "You have successfully fetched your volumes for the chosen day!"
                     },
                     "data": {
                       "type": "array",
@@ -809,7 +912,7 @@
           "Water"
         ],
         "summary": "Get list of water records by month",
-        "operationId": "getMonthWater",
+        "operationId": "getMonthlyWaterVolume",
         "description": "Get list of water records",
         "security": [
           {
@@ -846,7 +949,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully get a monthly water volume!"
+                      "example": "You have successfully fetched your monthly volumes!"
                     },
                     "data": {
                       "type": "array",
@@ -871,7 +974,7 @@
           "Water"
         ],
         "summary": "Update water's data",
-        "operationId": "updateWater",
+        "operationId": "editWaterVolume",
         "description": "Update data about water with payload",
         "security": [
           {
@@ -903,12 +1006,12 @@
                   "date": {
                     "description": "Date",
                     "type": "string",
-                    "example": "2024-07-03 7:00"
+                    "example": "2024-08-12T05:00:00.000Z"
                   },
                   "userId": {
                     "description": "Water's user id",
                     "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
+                    "example": "66b9c9b0208d8340251b411c"
                   }
                 }
               }
@@ -916,8 +1019,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Register water's data",
+          "201": {
+            "description": "Edited a water volume",
             "content": {
               "application/json": {
                 "schema": {
@@ -930,11 +1033,11 @@
                   "properties": {
                     "status": {
                       "type": "integer",
-                      "example": 200
+                      "example": 201
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully update water's data!"
+                      "example": "Successfully edited a water volume!"
                     },
                     "data": {
                       "type": "object",
@@ -955,7 +1058,7 @@
           "Water"
         ],
         "summary": "Delete water's data",
-        "operationId": "deleteWater",
+        "operationId": "deleteWaterVolume",
         "description": "Delete water's data",
         "security": [
           {
@@ -1078,23 +1181,22 @@
           "_id": {
             "description": "Water record id",
             "type": "string",
-            "example": "65e4decdd286b30065d54af9"
+            "example": "66b9c9b0208d8340251b411c"
           },
           "volume": {
             "description": "Volume of water",
             "type": "number",
-            "default": 50,
             "example": 250
           },
           "date": {
             "description": "Date",
             "type": "string",
-            "example": "2024-07-03 7:00"
+            "example": "2024-08-12T05:00:00.000Z"
           },
           "userId": {
             "description": "Water's user id",
             "type": "string",
-            "example": "65e4decdd286b30065d54af9"
+            "example": "66b9c9b0208d8340251b411c"
           }
         }
       }

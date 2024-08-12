@@ -27,9 +27,9 @@ paths:
   /v1/users/logout:
     post:
       $ref: ../swagger/paths/users/logout.yaml
-  # /v1/users/user-info:
-  #   get:
-  #     $ref: ../swagger/paths/users/user-info.yaml
+  /v1/users/user-info:
+    get:
+      $ref: ../swagger/paths/users/user-info.yaml
   /v1/users/update:
     patch:
       $ref: ../swagger/paths/users/update.yaml

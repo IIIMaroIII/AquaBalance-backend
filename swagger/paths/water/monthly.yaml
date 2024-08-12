@@ -1,7 +1,7 @@
 tags:
   - Water
 summary: Get list of water records by month
-operationId: getMonthWater
+operationId: getMonthlyWaterVolume
 description: Get list of water records
 security:
   - bearerAuth: []
@@ -29,7 +29,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully get a monthly water volume!
+              example: You have successfully fetched your monthly volumes!
             data:
               type: array
               items:
