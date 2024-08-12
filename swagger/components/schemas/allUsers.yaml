@@ -1,0 +1,5 @@
+properties:
+  totalUsers:
+    description: Amount of all users
+    type: number
+    example: 5

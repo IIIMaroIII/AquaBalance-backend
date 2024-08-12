@@ -7,7 +7,7 @@ security:
   - bearerAuth: []
 parameters:
   - in: path
-    name: water_id
+    name: chosenCardId
     required: true
     schema:
       type: string
@@ -24,7 +24,7 @@ requestBody:
             example: 250
           date:
             description: Date
-            type: string # тут залежитеме від фронту
+            type: string
             example: 2024-07-03 7:00
           userId:
             description: Water's user id
