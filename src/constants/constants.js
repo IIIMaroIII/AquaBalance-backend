@@ -36,6 +36,7 @@ export const SORT_ORDER = {
 };
 
 export const TIME_DURATION = {
+  TEN_SEC: 10 * 1000,
   FIFE_MIN: 5 * 60 * 1000,
   FIFTEEN_MIN: 15 * 60 * 1000,
   THIRTY_DAYS: 30 * 24 * 60 * 60 * 1000,
