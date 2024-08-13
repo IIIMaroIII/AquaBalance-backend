@@ -5,20 +5,20 @@ operationId: refreshUsersSession
 description: Endpoint to receive the access and refresh tokens
 security:
   - bearerAuth: []
-# security: []
-# parameters:
-#   - in: cookie
-#     name: refreshToken
-#     required: true
-#     schema:
-#       type: string
-#     description: The refresh token
-#   - in: cookie
-#     name: sessionId
-#     required: true
-#     schema:
-#       type: string
-#     description: The session id
+  # - cookieAuth: []
+parameters:
+  - in: cookie
+    name: refreshToken
+    required: true
+    schema:
+      type: string
+      description: The refresh token
+  - in: cookie
+    name: sessionId
+    required: true
+    schema:
+      type: string
+      description: The session id
 responses:
   '200':
     description: 'The session has been successfully refreshed!'
@@ -55,42 +55,3 @@ responses:
     $ref: ../../components/responses/401.yaml
   '500':
     $ref: ../../components/responses/500.yaml
-# security:
-#   - bearerAuth: []
-# parameters:
-#   - name: refreshToken
-#     in: cookie
-#     required: true
-#     schema:
-#       type: string
-#       description: The refresh tokens
-#   - name: sessionId
-#     in: cookie
-#     required: true
-#     schema:
-#       type: string
-#       description: The session id
-#       example: 66ba6e92fcede7e449a31faa
-# responses:
-#   '200':
-#     description: Token refreshed successfully
-#     content:
-#       application/json:
-#         schema:
-#           properties:
-#             status:
-#               type: integer
-#               example: 200
-#             message:
-#               type: string
-#               example: Successfully refreshed a session!
-#             data:
-#               type: object
-#               properties:
-#                 accessToken:
-#                   type: string
-#                   example: k9cWT3hTu0TDcQZXyUN7mdJCah87Z
-#   '401':
-#     $ref: ../../components/responses/401.yaml
-#   '404':
-#     $ref: ../../components/responses/404.yaml

@@ -479,6 +479,26 @@
             "bearerAuth": []
           }
         ],
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "refreshToken",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The refresh token"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "sessionId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The session id"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "The session has been successfully refreshed!",
@@ -535,7 +555,7 @@
         }
       }
     },
-    "/v1/request-reset-password": {
+    "/v1/users/request-reset-password": {
       "post": {
         "tags": [
           "Users"
@@ -595,7 +615,7 @@
         "security": []
       }
     },
-    "/v1/reset-pwd": {
+    "/v1/users/reset-pwd": {
       "post": {
         "tags": [
           "Users"
@@ -660,7 +680,7 @@
         "security": []
       }
     },
-    "/v1/get-oauth-url": {
+    "/v1/users/get-oauth-url": {
       "get": {
         "tags": [
           "Users"
@@ -710,7 +730,7 @@
         }
       }
     },
-    "/v1/confirm-oauth": {
+    "/v1/users/confirm-oauth": {
       "post": {
         "tags": [
           "Users"
