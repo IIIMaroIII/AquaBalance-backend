@@ -3,6 +3,7 @@ import {
   COOKIE,
   // USER
 } from '../constants/constants.js';
+import { Models } from '../db/models/index.js';
 import { Services } from '../services/index.js';
 import { GenerateCookie } from '../utils/GenerateCookie.js';
 import { HttpError } from '../utils/HttpError.js';
@@ -31,7 +32,11 @@ const getAllUsersController = async (req, res, next) => {
 };
 
 const getUserInfoController = async (req, res, next) => {
-  const user = req.user;
+  const { _id } = req.user;
+
+  const user = await Models.UserModel.find({ _id }).select(
+    '-createdAt -updatedAt -_id',
+  );
 
   if (!user) return next(HttpError(401, 'Unauthorized'));
 
