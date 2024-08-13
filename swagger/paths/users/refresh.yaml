@@ -1,13 +1,32 @@
 tags:
   - Users
-summary: Refresh the authentication token
-operationId: refreshToken
-description: Obtain a new authentication token using a refresh token
+summary: Refresh tokens
+operationId: refreshUsersSession
+description: Endpoint to receive the access and refresh tokens
 security:
   - bearerAuth: []
+  # - cookieAuth: []
+parameters:
+  - in: cookie
+    name: refreshToken
+    required: true
+    schema:
+      type: string
+      description: The refresh token
+  - in: cookie
+    name: sessionId
+    required: true
+    schema:
+      type: string
+      description: The session id
 responses:
   '200':
-    description: Token refreshed successfully
+    description: 'The session has been successfully refreshed!'
+    headers:
+      Set-Cookies:
+        description: 'Cookies with the new access and refresh tokens'
+        schema:
+          type: string
     content:
       application/json:
         schema:
@@ -22,12 +41,17 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully refreshed a session!
+              example: 'The session has been successfully refreshed!'
             data:
               type: object
+              required:
+                - accessToken
               properties:
                 accessToken:
                   type: string
-                  example: yKJRYGuruk+EUYeXJyU/+SUMfICpe0NT/say3guZ
+                  description: 'The refreshed access token'
+                  example: 'zPy2C69jOZOpghebE0MYyWAJPXaa62YTf1lrEEwl'
   '401':
-    $ref: '../../components/responses/401.yaml'
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

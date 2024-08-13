@@ -1,0 +1,69 @@
+tags:
+  - Users
+summary: Get current user's profile
+description: Information about the currently logged-in user
+operationId: getUserInfo
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: User info was successfully found
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: User info was successfully found
+            data:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: User's id
+                      example: 607f1f77bcf86cd799439011
+                    email:
+                      type: string
+                      format: email
+                      description: User's email address
+                      example: test@swagger.com
+                    name:
+                      type: string
+                      description: User's name
+                      example: User
+                    gender:
+                      description: User's gender
+                      type: string
+                      enum: [woman, man]
+                      default: woman
+                      example: man
+                    weight:
+                      description: User's weight
+                      type: number
+                      default: null
+                      example: 60
+                    activeTime:
+                      description: User's time in sport
+                      type: number
+                      example: 1.2
+                    dailyNorma:
+                      description: User's daily water norma
+                      type: number
+                      example: 1.8
+                    photoUrl:
+                      description: User's avatar
+                      type: string
+                      example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    $ref: ../../components/responses/404.yaml
+  '500':
+    $ref: '../../components/responses/500.yaml'

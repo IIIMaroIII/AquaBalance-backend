@@ -27,25 +27,25 @@ paths:
   /v1/users/logout:
     post:
       $ref: ../swagger/paths/users/logout.yaml
-  # /v1/users/user-info:
-  #   get:
-  #     $ref: ../swagger/paths/users/user-info.yaml
+  /v1/users/user-info:
+    get:
+      $ref: ../swagger/paths/users/user-info.yaml
   /v1/users/update:
     patch:
       $ref: ../swagger/paths/users/update.yaml
   /v1/users/refresh:
     post:
       $ref: ../swagger/paths/users/refresh.yaml
-  /v1/request-reset-password:
+  /v1/users/request-reset-password:
     post:
       $ref: ../swagger/paths/users/requestResetPassword.yaml
-  /v1/reset-pwd:
+  /v1/users/reset-pwd:
     post:
       $ref: ../swagger/paths/users/resetPwd.yaml
-  /v1/get-oauth-url:
+  /v1/users/get-oauth-url:
     get:
       $ref: ../swagger/paths/users/getOauthUrl.yaml
-  /v1/confirm-oauth:
+  /v1/users/confirm-oauth:
     post:
       $ref: ../swagger/paths/users/confirmOauth.yaml
   /v1/water:
@@ -67,3 +67,7 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
+    # cookieAuth:
+    #   type: apiKey
+    #   name: Set-Cookies
+    #   in: header

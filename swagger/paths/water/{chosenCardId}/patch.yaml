@@ -1,7 +1,7 @@
 tags:
   - Water
 summary: Update water's data
-operationId: updateWater
+operationId: editWaterVolume
 description: Update data about water with payload
 security:
   - bearerAuth: []
@@ -25,14 +25,14 @@ requestBody:
           date:
             description: Date
             type: string
-            example: 2024-07-03 7:00
+            example: 2024-08-12T05:00:00.000Z
           userId:
             description: Water's user id
             type: string
-            example: 65e4decdd286b30065d54af9
+            example: 66b9c9b0208d8340251b411c
 responses:
-  '200':
-    description: Register water's data
+  '201':
+    description: Edited a water volume
     content:
       application/json:
         schema:
@@ -44,10 +44,10 @@ responses:
           properties:
             status:
               type: integer
-              example: 200
+              example: 201
             message:
               type: string
-              example: Successfully update water's data!
+              example: Successfully edited a water volume!
             data:
               type: object
               $ref: ../../../components/schemas/water.yaml
