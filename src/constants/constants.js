@@ -2,6 +2,7 @@ import path from 'node:path';
 
 export const SERVER_DOMAIN = 'https://aquabalance-backend.onrender.com';
 export const LOCALHOST = 'http://localhost:5173';
+export const SERVER_LOCALHOST = 'http://localhost:3000';
 export const DEPLOY_FRONTEND = 'https://aqua-balance-frontend.vercel.app';
 
 export const ALLOWED_ORIGINS = [
@@ -81,6 +82,6 @@ export const SWAGGER = {
 export const GOOGLE_OAUTH = {
   CLIENT_ID: 'GOOGLE_OAUTH_CLIENT_ID',
   CLIENT_SECRET: 'GOOGLE_OAUTH_CLIENT_SECRET',
-  PATH_JSON: path.join(process.cwd(), 'google-oauth.json'),
-  REDIRECT_URIS: `${DEPLOY_FRONTEND}/confirm-google-redirect`,
+  PATH_JSON: path.join(process.cwd(), 'google-auth.json'),
+  REDIRECT_URIS: `${SERVER_LOCALHOST}/v1/users/confirm-oauth`,
 };
