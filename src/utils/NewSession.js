@@ -4,7 +4,7 @@ import { TIME_DURATION } from '../constants/constants.js';
 export const NewSession = (userId) => {
   const accessToken = randomBytes(30).toString('base64');
   const refreshToken = randomBytes(30).toString('base64');
-  const accessTokenValidUntil = new Date(Date.now() + 5 * 60 * 1000);
+  const accessTokenValidUntil = new Date(Date.now() + TIME_DURATION.ONE_HOUR);
   const refreshTokenValidUntil = new Date(
     Date.now() + TIME_DURATION.THIRTY_DAYS,
   );
